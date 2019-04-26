@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "362470702817",
+    "firebase_url": "https://ecommerce-app-id.firebaseio.com",
+    "project_id": "ecommerce-app-id",
+    "storage_bucket": "ecommerce-app-id.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362470702817:android:5eb058989109b59a",
+        "android_client_info": {
+          "package_name": "com.example.calvingonsalves.ecommerceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362470702817-bi7dlqom17liaik51miuv20vpg8mstad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9JncE8vqAyiJa5RA5neztUUgl8VU3xx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362470702817-bi7dlqom17liaik51miuv20vpg8mstad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
