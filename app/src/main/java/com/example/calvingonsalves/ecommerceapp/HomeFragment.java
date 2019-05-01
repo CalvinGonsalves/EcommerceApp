@@ -14,7 +14,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,7 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
+    private RecyclerView testing;
 
     /////// Banner Slider
 
@@ -49,10 +54,14 @@ public class HomeFragment extends Fragment {
     ////// Strip Ad
     private ImageView stripAdImage;
     private ConstraintLayout stripAdContainer;
-
-
     ////// Strip Ad
 
+    ////// Horizontal Product Layout
+    private TextView horizontalLayoutTitle;
+    private Button horizontalViewAllBtn;
+    private RecyclerView horizontalRecyclerView;
+
+    ////// Horizontal Product Layout
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -65,7 +74,7 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(layoutManager);
 
-        List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
+        final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
         categoryModelList.add(new CategoryModel("link","Home"));
         categoryModelList.add(new CategoryModel("link","Electronics"));
         categoryModelList.add(new CategoryModel("link","Appliances"));
@@ -159,6 +168,79 @@ public class HomeFragment extends Fragment {
         stripAdImage.setImageResource(R.drawable.mobile_banner);
         stripAdContainer.setBackgroundColor(Color.parseColor("#000000"));
         ////// Strip Ad
+
+        ////// Horizontal Product Layout
+
+        horizontalLayoutTitle = view.findViewById(R.id.horizontal_scroll_layout_title);
+        horizontalViewAllBtn = view.findViewById(R.id.horizontal_scroll_view_all_btn);
+        horizontalRecyclerView = view.findViewById(R.id.horizontal_scroll_layout_recycler_view);
+
+
+        List<HorizontalProductScrollModel>  horizontalProductScrollModelList = new ArrayList<>();
+
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.smartphone,"Samsung Galaxy S8","SD 865 Processor", "$400"));
+
+
+        HorizontalProductScrollAdapter horizontalProductScrollAdapter = new HorizontalProductScrollAdapter(horizontalProductScrollModelList);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        horizontalRecyclerView.setLayoutManager(linearLayoutManager);
+
+        horizontalRecyclerView.setAdapter(horizontalProductScrollAdapter);
+        horizontalProductScrollAdapter.notifyDataSetChanged();
+        ////// Horizontal Product Layout
+
+
+        ////// Grid Product Layout
+
+        TextView gridLayoutTitle = view.findViewById(R.id.grid_product_layout_title);
+        Button gridLayoutViewAllBtn = view.findViewById(R.id.grif_product_layout_viewallbtn);
+        GridView gridView = view.findViewById(R.id.grid_product_layout_gridview);
+
+
+        gridView.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
+
+
+        ////// Grid Product Layout
+
+
+        //////  ///////////////////////////////////////////
+        testing = view.findViewById(R.id.home_page_recycler_view);
+        LinearLayoutManager testingLayoutManager = new LinearLayoutManager(getContext());
+        testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        testing.setLayoutManager(testingLayoutManager);
+
+
+        List<HomePageModel> homePageModelList = new ArrayList<>();
+        homePageModelList.add(new HomePageModel(0, sliderModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.mobile_banner,"#000000"));
+        homePageModelList.add(new HomePageModel(2, "Deals of the day!!",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(3, "Deals of the day!!",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(3, "Deals of the day!!",horizontalProductScrollModelList));
+        homePageModelList.add(new HomePageModel(2, "Deals of the day!!",horizontalProductScrollModelList));
+
+        homePageModelList.add(new HomePageModel(0, sliderModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.banner,"#ffff00"));
+        homePageModelList.add(new HomePageModel(0, sliderModelList));
+        homePageModelList.add(new HomePageModel(1, R.drawable.mobile_banner,"#ff0000"));
+
+        HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
+
+        testing.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        ///////////////////////////////////////////////////
+
+
 
         return (view);
 

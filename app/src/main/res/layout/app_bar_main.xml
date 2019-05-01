@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:src="@mipmap/timthumb"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:contentDescription="TODO" />
 
         </android.support.v7.widget.Toolbar>
 
