@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
@@ -33,6 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         String icon = categoryModelList.get(position).getCategoryIconLink();
         String name = categoryModelList.get(position).getCategoryName();
         holder.setCategory(name, position);
+        holder.setCategoryIcon(icon);
 
     }
 
@@ -55,12 +59,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
 
-        private void setCategoryIcon() {
-            //todo:set categoryicons here;
+        private void setCategoryIcon(String iconUrl) {
+
+
+                Glide.with(itemView.getContext()).load(iconUrl).apply(new RequestOptions().placeholder(R.mipmap.house)).into(categoryIcon);
+
         }
 
         private void setCategory(final String name,final int position) {
-            //todo:set categoryname;
 
             categoryName.setText(name);
 

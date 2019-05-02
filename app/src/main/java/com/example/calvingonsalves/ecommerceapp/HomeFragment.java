@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -19,9 +20,17 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,6 +48,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
     private RecyclerView testing;
+    private List<CategoryModel> categoryModelList;
+    private FirebaseFirestore firebaseFirestore;
 
     /////// Banner Slider
 
@@ -74,21 +85,44 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         categoryRecyclerView.setLayoutManager(layoutManager);
 
-        final List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
-        categoryModelList.add(new CategoryModel("link","Home"));
-        categoryModelList.add(new CategoryModel("link","Electronics"));
-        categoryModelList.add(new CategoryModel("link","Appliances"));
-        categoryModelList.add(new CategoryModel("link","Furniture"));
-        categoryModelList.add(new CategoryModel("link","Fashion"));
-        categoryModelList.add(new CategoryModel("link","Toys"));
-        categoryModelList.add(new CategoryModel("link","Sports"));
-        categoryModelList.add(new CategoryModel("link","Wall Arts"));
-        categoryModelList.add(new CategoryModel("link","Books"));
-        categoryModelList.add(new CategoryModel("link","Shoes"));
+        categoryModelList = new ArrayList<CategoryModel>();
 
         categoryAdapter = new CategoryAdapter(categoryModelList); //passing list into adapter
         categoryRecyclerView.setAdapter(categoryAdapter);//setting adapter on recycler view
-        categoryAdapter.notifyDataSetChanged();
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("CATEGORIES").orderBy("index").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        for (QueryDocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())){
+                                            categoryModelList.add(new CategoryModel(Objects.requireNonNull(documentSnapshot.get("icon")).toString(), Objects.requireNonNull(documentSnapshot.get("categoryName")).toString()));
+
+                                        }
+                                        categoryAdapter.notifyDataSetChanged();
+
+                                    }else {
+                                        String error = Objects.requireNonNull(task.getException()).getMessage();
+                                        Toast.makeText(getContext(),error,Toast.LENGTH_SHORT).show();
+                                    }
+                            }
+                        });
+
+
+
+//        categoryModelList.add(new CategoryModel("link","Home"));
+//        categoryModelList.add(new CategoryModel("link","Electronics"));
+//        categoryModelList.add(new CategoryModel("link","Appliances"));
+//        categoryModelList.add(new CategoryModel("link","Furniture"));
+//        categoryModelList.add(new CategoryModel("link","Fashion"));
+//        categoryModelList.add(new CategoryModel("link","Toys"));
+//        categoryModelList.add(new CategoryModel("link","Sports"));
+//        categoryModelList.add(new CategoryModel("link","Wall Arts"));
+//        categoryModelList.add(new CategoryModel("link","Books"));
+//        categoryModelList.add(new CategoryModel("link","Shoes"));
+
+
 
         ///////////// Banner Slider
 

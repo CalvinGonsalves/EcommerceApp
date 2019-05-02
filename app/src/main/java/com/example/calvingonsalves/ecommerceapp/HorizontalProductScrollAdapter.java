@@ -1,5 +1,6 @@
 package com.example.calvingonsalves.ecommerceapp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -58,13 +59,23 @@ public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<Horizon
         private TextView productDescription;
         private TextView productPrice;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             productImage = itemView.findViewById(R.id.h_s_product_image);
             productDescription = itemView.findViewById(R.id.h_s_product_description);
             productTitle = itemView.findViewById(R.id.h_s_product_title);
             productPrice = itemView.findViewById(R.id.h_s_product_price);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailsActivity.class);
+                    itemView.getContext().startActivity(productDetailsIntent);
+                }
+            });
+
 
         }
 
