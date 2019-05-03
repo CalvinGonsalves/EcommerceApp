@@ -237,10 +237,10 @@ public class HomeFragment extends Fragment {
 
         TextView gridLayoutTitle = view.findViewById(R.id.grid_product_layout_title);
         Button gridLayoutViewAllBtn = view.findViewById(R.id.grif_product_layout_viewallbtn);
-        GridView gridView = view.findViewById(R.id.grid_product_layout_gridview);
+//        GridView gridView = view.findViewById(R.id.grid_product_layout_gridview);
 
 
-        gridView.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
+//        gridView.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
 
 
         ////// Grid Product Layout
